@@ -12,6 +12,30 @@ def add_players(matches,player_list,i):
         player_list.remove(p)
         if player_list == []:
             break
+
+# def create_tier(bracket_len):
+    # var = 1
+    # tier = []
+    # for i in range(0,bracket_len):
+        # for v in range(0,var):
+            # tier.append(var)
+        # if var >= 2:
+            # var = var * 2
+        # else:
+            # var += 1
+    # tier.reverse()
+    # return tier[bracket_len:]
+    
+# b = [['','Dar','Will'],['','Keeg','Mitch'],['','','Fel'],['','','']]
+# tier = create_tier(len(b))
+
+
+
+# for key,i in enumerate(b):
+    # i[0] = tier[key]
+
+# print(b)
+            
 player_list = ['Daryn','Keegan','Mitch','William','Danyl']
 home,away = player_split(player_list)
 matches = [Bracket('Match') for i in range(0,len(player_list) - 1)]
