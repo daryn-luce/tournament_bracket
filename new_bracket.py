@@ -9,7 +9,8 @@ class Bracket():
         self.result = ['-','-']
         self.winner = self.players[0]
         self.loser = self.players[0]
-        
+        self.tier = None
+        self.moved = False
     
     def win_player(self,player):
         if self.players[0] == player:
