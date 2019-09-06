@@ -1,24 +1,25 @@
 import random
 from new_bracket import Bracket
 
-# Split original list of players to Home/Away 0/1 groups
-def player_split(player_list):
-    half = len(player_list) // 2
-    return player_list[half:],player_list[:half]
-
 # Method to add players to the match 
-def add_players(matches,player_list,i):
+def add_players(matches,player_list,max_tier):
     for m in matches:
-        p = random.choice(player_list)
-        #m.players[i] = p
-        if m.players[0] == 'TBD':
-            m.players[0] = p
-        elif m.players[1] == 'TBD':
-            m.players[1] = p
-            
-        player_list.remove(p)
-        if player_list == []:
-            break
+        if m.tier == max_tier:
+            t = random.choice(player_list)
+            m.players[0] = t
+            player_list.remove(t)
+            t = random.choice(player_list)
+            m.players[1] = t
+            player_list.remove(t)
+
+    for m in matches:
+        if m.tier != max_tier:
+            try:
+                t = random.choice(player_list)
+                m.players[0] = t
+                player_list.remove(t)
+            except IndexError:
+                break
 
 def move_player(matches,player):
     for m in matches:
@@ -37,6 +38,7 @@ def move_player(matches,player):
                         return True
             return False
 def win_player(matches,player):
+    print()
     print(f'**************Looking for {player}')
     for m in matches:
         
@@ -67,17 +69,21 @@ def create_tier(bracket_len):
     return tier
     
 
-player_list = ['Daryn','Keegan','Mitch','William','Danyl','Felisha','Ryan','Mark','Jesse','Julio']
+player_list = ['Daryn','Keegan','Mitch','William','Danyl','Felisha'] #,'Ryan','Mark','Jesse','Julio'
 tier = create_tier(len(player_list))
-home,away = player_split(player_list)
 matches = [Bracket('Match') for i in range(0,len(player_list) - 1)]
 
-add_players(matches,home,0)
-add_players(matches,away,1)
+for key,m in enumerate(matches):
+    m.tier = tier[key]
+    
+
+add_players(matches,player_list,max(tier))
     
 for key,m in enumerate(matches):
     m.tier = tier[key]
     print(m.match,m.players,f'Tier: {m.tier}')
+
+
 
 while True:
     temp = input('Who won?\n')

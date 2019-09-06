@@ -12,10 +12,3 @@ class Bracket():
         self.tier = None
         self.moved = False
     
-    def win_player(self,player):
-        if self.players[0] == player:
-            self.result = [1,0]
-            self.winner,self.loser = players[0],players[1]
-        elif self.players[1] == player:
-            self.result = [0,1]
-            self.winner,self.loser = players[1],players[0]
